@@ -1,0 +1,9 @@
+# ninja log v5
+30	884	7652006422042430	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	b737f2fe05b40e5f
+24	919	7652006422358835	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	7687a80250846923
+6	926	7652006422393943	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	3d75114f63991749
+37	968	7652006422913323	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	79f4ffae3aab8f7f
+0	1033	7652006423585811	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	feb7de6bf960ab49
+17	1111	7652006424359794	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	cb87e66ea9c1e2d2
+11	1182	7652006425060274	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	9335d8bba31b495b
+1182	1353	7652006426343419	D:/Unity Projects/Bus Catching Simulator/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3y4vk32b/obj/arm64-v8a/libgame.so	104cb50c425168e3
