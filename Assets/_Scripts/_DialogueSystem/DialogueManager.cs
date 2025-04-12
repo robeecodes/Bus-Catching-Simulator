@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class DialogueManager : Singleton<DialogueManager>
 {
@@ -25,6 +24,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
     public void StartDialogue(Dialogue dialogue)
     {
+        GameManager.Instance.LockMovement();
         _sentences.Clear();
         
         if (dialogue.nameText != null)
@@ -36,7 +36,7 @@ public class DialogueManager : Singleton<DialogueManager>
         _dialogueCanvas = dialogue.dialogueCanvas;
         
         _dialogueCanvas.gameObject.SetActive(true);
-
+        
         foreach (string sentence in dialogue.sentences)
         {
             _sentences.Enqueue(sentence);
@@ -80,5 +80,6 @@ public class DialogueManager : Singleton<DialogueManager>
     private void EndDialogue()
     {
         _dialogueCanvas.gameObject.SetActive(false);
+        GameManager.Instance.UnlockMovement();
     }
 }
