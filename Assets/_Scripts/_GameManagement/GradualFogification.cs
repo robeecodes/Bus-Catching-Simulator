@@ -3,7 +3,7 @@ using UnityEngine;
 public class GradualFogification : MonoBehaviour
 {
     public static void IncreaseDensity(float timeOfDay, float startTime, float endTime, float minDensity,
-        float maxDensity)
+        float maxDensity, Material skyboxMat)
     {
         bool wrapsAroundMidnight = endTime < startTime;
 
@@ -42,5 +42,8 @@ public class GradualFogification : MonoBehaviour
         float fogDensity = Mathf.Lerp(minDensity, maxDensity, normalizedTime);
 
         RenderSettings.fogDensity = fogDensity;
+        skyboxMat.SetColor("_FogCol", RenderSettings.fogColor);
+        skyboxMat.SetColor("_Tint", RenderSettings.fogColor);
+        skyboxMat.SetFloat("_FogIntens", fogDensity + 0.2f);
     }
 }

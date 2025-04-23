@@ -25,6 +25,7 @@ public class DialogueManager : Singleton<DialogueManager>
     public void StartDialogue(Dialogue dialogue)
     {
         GameManager.Instance.LockMovement();
+        GameManager.Instance.PauseTime();
         _sentences.Clear();
         
         if (dialogue.nameText != null)
@@ -81,5 +82,6 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         _dialogueCanvas.gameObject.SetActive(false);
         GameManager.Instance.UnlockMovement();
+        GameManager.Instance.ResumeTime();
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Sydewa;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
@@ -11,24 +12,18 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private TeleportationProvider teleportLocomotion;
     [SerializeField] private XRRayInteractor teleportInteractor;
 
-    [SerializeField] private LightingManager lightingManager;
-    private float _dayStartTime = 18.5f;
+    public LightingManager lightingManager;
+    [SerializeField] private float fogStartTime = 21f;
+    [SerializeField] private Material skyboxMat;
     private float _dayEndTime = 3.0f;
-    private float _dayLength;
 
-    private float _fogMinDensity = 0.04f;
-    private float _fogMaxDensity = 1f;
-
-    private void Start()
-    {
-        _dayLength =
-            _dayEndTime < _dayStartTime ? (_dayEndTime + 24) - _dayStartTime : _dayEndTime - _dayStartTime;
-    }
-
+    [SerializeField] private float fogMinDensity = 0.04f;
+    [SerializeField] private float fogMaxDensity = 0.6f;
+    
     private void Update()
     {
-        GradualFogification.IncreaseDensity(lightingManager.TimeOfDay, _dayStartTime, _dayEndTime, _fogMinDensity,
-            _fogMaxDensity);
+        GradualFogification.IncreaseDensity(lightingManager.TimeOfDay, fogStartTime, _dayEndTime, fogMinDensity,
+            fogMaxDensity, skyboxMat);
     }
 
     public void LockMovement()
@@ -43,5 +38,15 @@ public class GameManager : Singleton<GameManager>
         moveLocomotion.enabled = true;
         teleportLocomotion.enabled = true;
         teleportInteractor.enabled = true;
+    }
+
+    public void PauseTime()
+    {
+        lightingManager.IsDayCycleOn = false;
+    }
+
+    public void ResumeTime()
+    {
+        lightingManager.IsDayCycleOn = true;
     }
 }

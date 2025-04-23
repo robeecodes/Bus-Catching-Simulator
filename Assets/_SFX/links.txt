@@ -1,0 +1,8 @@
+ambience.mp3	https://pixabay.com/sound-effects/ambience-urban-outdoor-at-arago-diagonal-18865/
+bark.mp3	https://pixabay.com/sound-effects/dog-barking-70772/
+crack.mp3	https://pixabay.com/sound-effects/bone-crack-1-84755/
+creeping.mp3	https://pixabay.com/sound-effects/thriller-ambient-14563/
+flicker.mp3	https://pixabay.com/sound-effects/flourescent-light-29596/
+steps.mp3	https://pixabay.com/sound-effects/step-soundwav-14903/
+vape.mp3	https://pixabay.com/sound-effects/juul-smoking-28389/
+wind.mp3	https://pixabay.com/sound-effects/smooth-cold-wind-looped-135538/
