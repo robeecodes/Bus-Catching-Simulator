@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using Sydewa;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
@@ -12,7 +10,13 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private TeleportationProvider teleportLocomotion;
     [SerializeField] private XRRayInteractor teleportInteractor;
 
+    
+    // Access time of day
     public LightingManager lightingManager;
+    public event Action<int> OnTimeChanged;
+    private int _lastReportedTime = -1;
+    
+    
     [SerializeField] private float fogStartTime = 21f;
     [SerializeField] private Material skyboxMat;
     private float _dayEndTime = 3.0f;
@@ -20,10 +24,16 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private float fogMinDensity = 0.04f;
     [SerializeField] private float fogMaxDensity = 0.6f;
     
+    
+    // Detect if screen is full of smoke
+    public bool isScreenSmoke = false;
+    
     private void Update()
     {
         GradualFogification.IncreaseDensity(lightingManager.TimeOfDay, fogStartTime, _dayEndTime, fogMinDensity,
             fogMaxDensity, skyboxMat);
+        
+        OnTimeOfDayChanged();
     }
 
     public void LockMovement()
@@ -48,5 +58,16 @@ public class GameManager : Singleton<GameManager>
     public void ResumeTime()
     {
         lightingManager.IsDayCycleOn = true;
+    }
+
+    private void OnTimeOfDayChanged()
+    {
+        int currentTime = Mathf.FloorToInt(lightingManager.TimeOfDay);
+
+        if (currentTime != _lastReportedTime)
+        {
+            _lastReportedTime = currentTime;
+            OnTimeChanged?.Invoke(currentTime);
+        }
     }
 }

@@ -8,8 +8,6 @@ public class Ambience : MonoBehaviour
     [SerializeField] private float streetTargetVolume = 0.7f;
     [SerializeField] private AudioSource creep;
     [SerializeField] private float creepTargetVolume = 0.45f;
-
-    private Coroutine _isCreeping = null;
     
     private void Awake()
     {
@@ -19,17 +17,14 @@ public class Ambience : MonoBehaviour
         creep.enabled = false;
         
         StartCoroutine(Fade(street, 30f, streetTargetVolume));
+        GameManager.Instance.OnTimeChanged += OnTimeChanged;
     }
     
-    private void Update()
+    private void OnDestroy()
     {
-        if (GameManager.Instance.lightingManager.TimeOfDay >= 21 && _isCreeping == null)
-        {
-            creep.enabled = true;
-            _isCreeping = StartCoroutine(Fade(creep, 1000f, creepTargetVolume));
-            StartCoroutine(Fade(street, 3000f, 0f));
-        }
+        GameManager.Instance.OnTimeChanged -= OnTimeChanged;
     }
+
     
     private IEnumerator Fade(AudioSource audioSource, float duration, float targetVolume)
     {
@@ -42,5 +37,14 @@ public class Ambience : MonoBehaviour
         }
         
         if (audioSource.volume <= 0f) audioSource.enabled = false;
+    }
+    
+    private void OnTimeChanged(int newTime)
+    {
+        if (newTime < 21) return;
+        creep.enabled = true;
+        StartCoroutine(Fade(creep, 1000f, creepTargetVolume));
+        StartCoroutine(Fade(street, 3000f, 0f));
+        GameManager.Instance.OnTimeChanged -= OnTimeChanged;
     }
 }
