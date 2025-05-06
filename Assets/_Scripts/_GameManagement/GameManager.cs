@@ -17,9 +17,9 @@ public class GameManager : Singleton<GameManager>
     private int _lastReportedTime = -1;
     
     
-    [SerializeField] private float fogStartTime = 21f;
+    [SerializeField] private float fogStartTime = 19.5f;
     [SerializeField] private Material skyboxMat;
-    private float _dayEndTime = 3.0f;
+    [SerializeField] private float dayEndTime = 3.0f;
 
     [SerializeField] private float fogMinDensity = 0.04f;
     [SerializeField] private float fogMaxDensity = 0.6f;
@@ -30,7 +30,7 @@ public class GameManager : Singleton<GameManager>
     
     private void Update()
     {
-        GradualFogification.IncreaseDensity(lightingManager.TimeOfDay, fogStartTime, _dayEndTime, fogMinDensity,
+        GradualFogification.IncreaseDensity(lightingManager.TimeOfDay, fogStartTime, dayEndTime, fogMinDensity,
             fogMaxDensity, skyboxMat);
         
         OnTimeOfDayChanged();

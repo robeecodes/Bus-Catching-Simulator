@@ -46,7 +46,8 @@ public class PlayerEvents : MonoBehaviour
 
     private IEnumerator ClearSmoke()
     {
-        yield return new WaitForSeconds(5);
+        // Smoke will clear automatically after 7 seconds
+        yield return new WaitForSeconds(7);
         _smokeScreen.SmokeDown();
         GameManager.Instance.isScreenSmoke = false;
     }

@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class GradualFogification : MonoBehaviour
 {
+    private static readonly int FogCol = Shader.PropertyToID("_FogCol");
+    private static readonly int Tint = Shader.PropertyToID("_Tint");
+    private static readonly int FogIntens = Shader.PropertyToID("_FogIntens");
+
     public static void IncreaseDensity(float timeOfDay, float startTime, float endTime, float minDensity,
         float maxDensity, Material skyboxMat)
     {
@@ -42,8 +46,8 @@ public class GradualFogification : MonoBehaviour
         float fogDensity = Mathf.Lerp(minDensity, maxDensity, normalizedTime);
 
         RenderSettings.fogDensity = fogDensity;
-        skyboxMat.SetColor("_FogCol", RenderSettings.fogColor);
-        skyboxMat.SetColor("_Tint", RenderSettings.fogColor);
-        skyboxMat.SetFloat("_FogIntens", fogDensity + 0.2f);
+        skyboxMat.SetColor(FogCol, RenderSettings.fogColor);
+        skyboxMat.SetColor(Tint, RenderSettings.fogColor);
+        skyboxMat.SetFloat(FogIntens, fogDensity + 0.2f);
     }
 }

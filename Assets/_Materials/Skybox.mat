@@ -105,7 +105,7 @@ Material:
     - _Exposure: 1
     - _FogBottom: 1
     - _FogEnd: 0.4
-    - _FogIntens: 0.3526746
+    - _FogIntens: 0.27041638
     - _FogStart: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -131,10 +131,10 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FogCol: {r: 0.19607845, g: 0.039215688, b: 0.07450981, a: 1}
+    - _FogCol: {r: 0.18823531, g: 0.043137256, b: 0.08627451, a: 1}
     - _MieTint: {r: 0.9277385, g: 1, b: 0.91886795, a: 0.5}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Tint: {r: 0.19607845, g: 0.039215688, b: 0.07450981, a: 1}
+    - _Tint: {r: 0.18823531, g: 0.043137256, b: 0.08627451, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &1191227746533492124

@@ -5,13 +5,15 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class NPCController : MonoBehaviour
 {
-    [SerializeField] private GameObject headBone;
+    public GameObject headBone;
 
     // Player positions
     public Transform playerTransform;
     [SerializeField] private Transform playerEyeSpawn;
     
     public Animator animator;
+    
+    [SerializeField] private float cooldown = 10f;
 
     private INPCBehavior _behaviour;
 
@@ -21,18 +23,22 @@ public class NPCController : MonoBehaviour
     {
         _behaviour = GetComponent<INPCBehavior>();
         _behaviour?.Init(this);
-        animator = GetComponent<Animator>();
+        TryGetComponent<Animator>(out animator);
     }
 
     private void Update()
     {
         _behaviour?.HandleState();
-        if (GameManager.Instance.lightingManager.TimeOfDay >= 21)
+    }
+
+    private void LateUpdate()
+    {
+        if (GameManager.Instance.lightingManager.TimeOfDay >= 21 || GameManager.Instance.lightingManager.TimeOfDay <= 3)
         {
             headBone.transform.LookAt(playerTransform);
         }
     }
-    
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.TryGetComponent<Trash>(out Trash trash))
@@ -59,7 +65,7 @@ public class NPCController : MonoBehaviour
         if (rb != null)
         {
             Vector3 direction = (new Vector3(playerEyeSpawn.position.x, playerEyeSpawn.position.y + 0.2f, playerEyeSpawn.position.z) - trash.transform.position).normalized;
-            float returnForce = 5f;
+            float returnForce = 10f;
 
             rb.AddForce(direction * returnForce, ForceMode.Impulse);
         }
@@ -76,7 +82,7 @@ public class NPCController : MonoBehaviour
     private IEnumerator TriggerCooldown()
     {
         _canTrigger = false;
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(cooldown);
         _canTrigger = true;
     }
 }

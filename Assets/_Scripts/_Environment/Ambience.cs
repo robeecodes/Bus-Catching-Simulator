@@ -11,11 +11,6 @@ public class Ambience : MonoBehaviour
     
     private void Awake()
     {
-        street.volume = 0f;
-        creep.volume = 0f;
-        street.enabled = true;
-        creep.enabled = false;
-        
         StartCoroutine(Fade(street, 30f, streetTargetVolume));
         GameManager.Instance.OnTimeChanged += OnTimeChanged;
     }
@@ -29,22 +24,27 @@ public class Ambience : MonoBehaviour
     private IEnumerator Fade(AudioSource audioSource, float duration, float targetVolume)
     {
         float time = 0f;
+        float startVolume = audioSource.volume;
+
         while (time < duration)
         {
             time += Time.deltaTime;
-            audioSource.volume = Mathf.Lerp(audioSource.volume, targetVolume, time / duration);
+            float t = Mathf.Clamp01(time / duration);
+            audioSource.volume = Mathf.Lerp(startVolume, targetVolume, t);
             yield return null;
         }
-        
-        if (audioSource.volume <= 0f) audioSource.enabled = false;
+
+        audioSource.volume = targetVolume;
+        if (Mathf.Approximately(targetVolume, 0f))
+            audioSource.enabled = false;
     }
+
     
     private void OnTimeChanged(int newTime)
     {
         if (newTime < 21) return;
-        creep.enabled = true;
-        StartCoroutine(Fade(creep, 1000f, creepTargetVolume));
-        StartCoroutine(Fade(street, 3000f, 0f));
+        StartCoroutine(Fade(creep, 5f, creepTargetVolume));
+        StartCoroutine(Fade(street, 10f, 0f));
         GameManager.Instance.OnTimeChanged -= OnTimeChanged;
     }
 }
